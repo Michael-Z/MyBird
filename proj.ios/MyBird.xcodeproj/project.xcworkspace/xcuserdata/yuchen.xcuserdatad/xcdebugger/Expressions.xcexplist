@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "Pipe::getGoldHotRect():Pipe.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "AudioController::playEffect(char const*, bool):AudioController.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "getFullPath(name)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene::testBirdHitGold(Pipe*) [inlined]:GameScene.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "pipe-&gt;hasGold()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
