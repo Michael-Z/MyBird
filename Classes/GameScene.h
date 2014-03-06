@@ -44,6 +44,8 @@ public:
     
     void birdDie(bool dieReasonFall);
     
+    void showSave();
+    
     void showResult();
     
     void setStatus(int state);
@@ -70,6 +72,8 @@ public:
     
     void menuCommand(int menuId);
     
+    void setNoInvincible();
+    
 protected:
 
 private:
@@ -95,6 +99,8 @@ private:
     int dieCount;
     int pipeCount;
     int goldCount;
+    bool birdInvincible;
+    int resurCount;
 };
 
 #endif /* defined(__testShao3__GameScene__) */

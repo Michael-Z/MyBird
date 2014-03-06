@@ -39,11 +39,14 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 //import com.rudiduad.st.Ggsiaadd123;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 //飞沃
@@ -51,18 +54,26 @@ import android.content.SharedPreferences;
 //import com.feiwoone.banner.RecevieAdListener;
 //import com.feiwothree.coverscreen.CoverAdComponent;
 
-//微信
-//import com.tencent.mm.sdk.openapi.IWXAPI;
-//import com.tencent.mm.sdk.openapi.WXAPIFactory;
-//import com.tencent.mm.sdk.openapi.WXTextObject;
 
-public class MyBird extends Cocos2dxActivity{
+//微信
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.sdk.openapi.SendMessageToWX;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.sdk.openapi.WXMediaMessage;
+import com.tencent.mm.sdk.openapi.WXTextObject;
+import com.tencent.mm.sdk.openapi.BaseReq;
+import com.tencent.mm.sdk.openapi.BaseResp;
+
+public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 	
 	public static Context ownerContext;
 	public static SharedPreferences sharedPrefs;
 	public static SharedPreferences.Editor prefsEditor;
+	private static Handler mHandler;
 	//微信
-//	public static final String APP_ID = "wxed6feb2e2a0410f6";
+	public static final String WX_APPID = "wx7e25d613337b3bc5";
+	public static IWXAPI api;
 	//飞沃
 //	private RelativeLayout myAdonContainerView;
 //	private String feiwo_appKey = "UiWpbaNQJdJ5yUAw15OqS16m";
@@ -79,10 +90,13 @@ public class MyBird extends Cocos2dxActivity{
 		ownerContext = getApplicationContext();
 		sharedPrefs = getApplicationContext().getSharedPreferences("testShao3.preferences", Activity.MODE_PRIVATE);
 		prefsEditor = sharedPrefs.edit();  
+		mHandler = new Handler();
 		
 		//微信
-		//final IWXAPI api = WXAPIFactory.createWXAPI(this, APP_ID);
-		//api.registerApp(APP_ID);
+		//将应用注册到微信
+		api = WXAPIFactory.createWXAPI(this, WX_APPID);
+		api.registerApp(WX_APPID);
+		api.handleIntent(getIntent(), this);
 		//飞沃banner
 //		myAdonContainerView = new RelativeLayout(this);
 //        RelativeLayout.LayoutParams parentLayputParams = new RelativeLayout.LayoutParams(
@@ -128,6 +142,39 @@ public class MyBird extends Cocos2dxActivity{
     static {
         System.loadLibrary("cocos2dcpp");
     }  
+    
+    //发送到微信
+    public static void sendToWX()
+    {
+    	if (api.isWXAppInstalled()) {
+    		
+    		//startActivity(new Intent())
+    		
+    		WXTextObject textObj = new WXTextObject();
+        	textObj.text = "测试信息请忽略";
+        	
+        	WXMediaMessage msg = new WXMediaMessage();
+        	msg.mediaObject = textObj;
+        	msg.description = "测试";
+        	
+        	SendMessageToWX.Req req = new SendMessageToWX.Req();
+        	req.transaction = String.valueOf(System.currentTimeMillis());
+        	req.message = msg;
+        	if (api.getWXAppSupportAPI() >= 0x21020001)
+        		req.scene = SendMessageToWX.Req.WXSceneTimeline;
+        	else
+        		req.scene = SendMessageToWX.Req.WXSceneSession;
+        	
+        	api.sendReq(req);
+    	}
+    	else {
+    		mHandler.post(new Runnable() {
+    			public void run() {
+    				Toast.makeText(ownerContext, "您还没有安装微信~", Toast.LENGTH_LONG).show();
+    			}
+    		});    		
+    	}    	
+    }
     
   //有米获取在线参数
     public static void getYoumi() {
@@ -244,4 +291,17 @@ public class MyBird extends Cocos2dxActivity{
     		return false;
     	}
     }
+
+	@Override
+	public void onReq(BaseReq arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onResp(BaseResp arg0) {
+		// TODO Auto-generated method stub
+		Log.v("xxxxxxxx", "sssssss");
+		
+	}
 }

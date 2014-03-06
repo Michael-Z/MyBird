@@ -43,8 +43,14 @@ bool Bird::init()
 void Bird::setInit()
 {
     int birdRand =  0 + rand() % (2 - 0 + 1);
+    setInit(birdRand);
+}
+
+void Bird::setInit(int idx)
+{
+    _birdIdx =  idx;
     
-    CCArray *birdAnimArray = (CCArray*)_birdFrams->objectAtIndex(birdRand);
+    CCArray *birdAnimArray = (CCArray*)_birdFrams->objectAtIndex(_birdIdx);
     CCAnimation *birdAnimation = CCAnimation::createWithSpriteFrames(birdAnimArray, 0.1f);
     CCAnimate *birdAnimate = CCAnimate::create(birdAnimation);
     _bird->setDisplayFrame((CCSpriteFrame*)birdAnimArray->objectAtIndex(2));
@@ -68,4 +74,9 @@ void Bird::die()
     setAniNodeMoveSpeed(ccp(0, 0));
     setAniNodeAccRotateSpeed(0);
     setAniNodeRotateSpeed(0);
+}
+
+int Bird::getBirdIdx()
+{
+    return _birdIdx;
 }

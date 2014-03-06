@@ -100,4 +100,14 @@ extern "C"
 		t.env->CallStaticVoidMethod(t.classID, t.methodID);
 		t.env->DeleteLocalRef(t.classID);
 	}
+
+    void JNI_sendToWX()
+	{
+		JniMethodInfo t;
+		if(!JniHelper::getStaticMethodInfo(t, CLASS_NAME, "sendToWX", "()V")){
+			return;
+		}
+		t.env->CallStaticVoidMethod(t.classID, t.methodID);
+		t.env->DeleteLocalRef(t.classID);
+	}
 }

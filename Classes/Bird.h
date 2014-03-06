@@ -23,13 +23,19 @@ public:
     
     virtual bool init();
     
+    void setInit(int idx);
+    
     void setInit();
     
     void die();
+    
+    int getBirdIdx();
 protected:
     CCSprite *_bird;
     
     CCArray *_birdFrams;
+    
+    int _birdIdx;
 };
 
 

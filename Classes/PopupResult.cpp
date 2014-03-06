@@ -55,7 +55,7 @@ bool PopupResult::init(){
     _panel->setPosition(ccpAdd(center, ccp(0, 0)));
     this->addChild(_panel);
     //bg
-    _resultBg = Utils::createSprite("resultPanle");
+    _resultBg = Utils::createSprite("resultPanel");
     _panel->addChild(_resultBg);
     _resultBg->setVisible(false);
     
@@ -233,7 +233,7 @@ void PopupResult::showScoreAnimation()
 
 void PopupResult::registerWithTouchDispatcher()
 {
-    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, -KLayerOrderPopupResult, true);
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, -_zorder, true);
 }
 
 bool PopupResult::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)

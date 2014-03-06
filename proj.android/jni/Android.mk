@@ -20,6 +20,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Pipe.cpp \
                    ../../Classes/PopupEventDelegate.cpp \
                    ../../Classes/PopupResult.cpp \
+                   ../../Classes/PopupSave.cpp \
+                   ../../Classes/PopupStart.cpp \
                    ../../Classes/SplashScene.cpp \
                    ../../Classes/Utils.cpp \
 

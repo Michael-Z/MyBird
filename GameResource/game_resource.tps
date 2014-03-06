@@ -26,7 +26,7 @@
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
-        <enum type="SettingsBase::DitherType">FloydSteinberg</enum>
+        <enum type="SettingsBase::DitherType">NearestNeighbour</enum>
         <key>backgroundColor</key>
         <uint>0</uint>
         <key>libGdx</key>
@@ -40,7 +40,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -50,7 +50,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">pvr2ccz</enum>
         <key>borderPadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -119,7 +119,7 @@
         <key>forceIdenticalLayout</key>
         <false/>
         <key>outputFormat</key>
-        <enum type="SettingsBase::OutputFormat">RGBA4444</enum>
+        <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
@@ -210,7 +210,6 @@
             <filename>pipeDown_2.png</filename>
             <filename>pipeUp_1.png</filename>
             <filename>pipeUp_2.png</filename>
-            <filename>resultPanle.png</filename>
             <filename>text_gameover.png</filename>
             <filename>text_getready.png</filename>
             <filename>tip_help.png</filename>
@@ -236,6 +235,14 @@
             <filename>bg_1.png</filename>
             <filename>bg_2.png</filename>
             <filename>gold_4.png</filename>
+            <filename>close.png</filename>
+            <filename>goldButPanel.png</filename>
+            <filename>goldBuyBtn.png</filename>
+            <filename>goldToShop.png</filename>
+            <filename>resultPanel.png</filename>
+            <filename>saveBtn.png</filename>
+            <filename>savePanel.png</filename>
+            <filename>saveTitle.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -22,6 +22,8 @@ extern "C"
     void JNI_showAdsScreen();
 
     void JNI_closeAdsScreen();
+
+    void JNI_sendToWX();
 };
 
 #endif /* defined(__testShao3__UtilsJNI__) */

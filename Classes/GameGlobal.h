@@ -18,18 +18,28 @@ const float SpeedPipe = SpeedLand;
 const float SpeedBirdDie = 300;
 
 const int PipeWidth = 52;
+const int LandMoreWidth = 32;
 
 const int ActionTagBirdFall = 11;
 const int ActionTagBirdFly = 12;
 const int ActionTagPipeMove = 13;
 const int ActionTagLandMove = 14;
 const int ActionTagBirdUpDown = 15;
+const int ActionTagBirdBlink = 16;
 
 const int KMenuRestart = 1;
 const int KMenuRecord = 2;
+const int KMenuSaveClose = 3;
+const int KMenuSaveOk = 4;
 
 const int KLayerTagPopupResult = 1;
+const int KLayerTagPopupStart = 2;
+const int KLayerTagPopupSave = 3;
 
+const int KLayerOrderGame = 1;
+const int KLayerOrderPopupStart = 2;
+const int KLayerOrderPopupSave = 8;
+const int KLayerOrderPopupShop = 9;
 const int KLayerOrderPopupResult = 10;
 
 #endif

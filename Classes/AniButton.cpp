@@ -72,8 +72,9 @@ void AniButton::touch()
         }
         else {
             CCScaleTo *scale = CCScaleTo::create(0.1, 1.2);
-            scale->setTag(AniButtonDownAction);
-            aniButton_up->runAction(scale);
+            CCSequence *seq = CCSequence::create(scale, CCScaleTo::create(0.1, 1), NULL);
+            //scale->setTag(AniButtonDownAction);
+            aniButton_up->runAction(seq);
         }
     }
 }
@@ -86,10 +87,10 @@ void AniButton::click()
             aniButton_up->setVisible(true);
         }
         else {
-            aniButton_up->stopActionByTag(AniButtonDownAction);
-            aniButton_up->setScale(1.2);
-            CCScaleTo *scale = CCScaleTo::create(0.1, 1);
-            aniButton_up->runAction(scale);
+//            aniButton_up->stopActionByTag(AniButtonDownAction);
+//            aniButton_up->setScale(1.2);
+//            CCScaleTo *scale = CCScaleTo::create(0.1, 1);
+//            aniButton_up->runAction(scale);
         }
     }
     else if (aniButton_type == 2) {
