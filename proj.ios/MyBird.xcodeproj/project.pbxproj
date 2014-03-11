@@ -225,6 +225,8 @@
 		4B0D76B918C4E4A000703DC9 /* CCShake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B0D76B718C4E4A000703DC9 /* CCShake.cpp */; };
 		4B0D76C118C615FB00703DC9 /* PopupStart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B0D76BF18C615FB00703DC9 /* PopupStart.cpp */; };
 		4B0D76C718C62D4F00703DC9 /* PopupSave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B0D76C518C62D4F00703DC9 /* PopupSave.cpp */; };
+		4B0D76CE18CE062800703DC9 /* PopupShop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B0D76CC18CE062800703DC9 /* PopupShop.cpp */; };
+		4B0D76D418CE27DE00703DC9 /* GameUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B0D76D218CE27DE00703DC9 /* GameUI.cpp */; };
 		4BE580EF18C349BE007501C2 /* game_source.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4BE580ED18C349BE007501C2 /* game_source.plist */; };
 		4BE580F018C349BE007501C2 /* game_source.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 4BE580EE18C349BE007501C2 /* game_source.pvr.ccz */; };
 		4BE580F218C34A23007501C2 /* music in Resources */ = {isa = PBXBuildFile; fileRef = 4BE580F118C34A23007501C2 /* music */; };
@@ -731,6 +733,10 @@
 		4B0D76C018C615FB00703DC9 /* PopupStart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopupStart.h; path = ../Classes/PopupStart.h; sourceTree = "<group>"; };
 		4B0D76C518C62D4F00703DC9 /* PopupSave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PopupSave.cpp; path = ../Classes/PopupSave.cpp; sourceTree = "<group>"; };
 		4B0D76C618C62D4F00703DC9 /* PopupSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopupSave.h; path = ../Classes/PopupSave.h; sourceTree = "<group>"; };
+		4B0D76CC18CE062800703DC9 /* PopupShop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PopupShop.cpp; path = ../Classes/PopupShop.cpp; sourceTree = "<group>"; };
+		4B0D76CD18CE062800703DC9 /* PopupShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopupShop.h; path = ../Classes/PopupShop.h; sourceTree = "<group>"; };
+		4B0D76D218CE27DE00703DC9 /* GameUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameUI.cpp; path = ../Classes/GameUI.cpp; sourceTree = "<group>"; };
+		4B0D76D318CE27DE00703DC9 /* GameUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameUI.h; path = ../Classes/GameUI.h; sourceTree = "<group>"; };
 		4BE580ED18C349BE007501C2 /* game_source.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = game_source.plist; sourceTree = "<group>"; };
 		4BE580EE18C349BE007501C2 /* game_source.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = game_source.pvr.ccz; sourceTree = "<group>"; };
 		4BE580F118C34A23007501C2 /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = music; sourceTree = "<group>"; };
@@ -1300,6 +1306,8 @@
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				4BE580F718C34AB5007501C2 /* AudioController.cpp */,
+				4B0D76CC18CE062800703DC9 /* PopupShop.cpp */,
+				4B0D76CD18CE062800703DC9 /* PopupShop.h */,
 				4BE580F818C34AB5007501C2 /* AudioController.h */,
 				4BE580F918C34AB5007501C2 /* Bird.cpp */,
 				4BE580FA18C34AB5007501C2 /* Bird.h */,
@@ -1311,6 +1319,8 @@
 				4BE580FE18C34AB5007501C2 /* GameData.h */,
 				4BE580FF18C34AB5007501C2 /* GameGlobal.h */,
 				4BE5811A18C48ACD007501C2 /* GameScene.cpp */,
+				4B0D76D218CE27DE00703DC9 /* GameUI.cpp */,
+				4B0D76D318CE27DE00703DC9 /* GameUI.h */,
 				4BE5811B18C48ACD007501C2 /* GameScene.h */,
 				4B0D76C518C62D4F00703DC9 /* PopupSave.cpp */,
 				4B0D76C618C62D4F00703DC9 /* PopupSave.h */,
@@ -1928,6 +1938,7 @@
 				15A3D91E1682F7D5002FB0C5 /* b2PolygonAndCircleContact.cpp in Sources */,
 				15A3D91F1682F7D5002FB0C5 /* b2PolygonContact.cpp in Sources */,
 				15A3D9201682F7D5002FB0C5 /* b2DistanceJoint.cpp in Sources */,
+				4B0D76D418CE27DE00703DC9 /* GameUI.cpp in Sources */,
 				15A3D9211682F7D5002FB0C5 /* b2FrictionJoint.cpp in Sources */,
 				4BE5810C18C34AB5007501C2 /* AudioController.cpp in Sources */,
 				15A3D9221682F7D5002FB0C5 /* b2GearJoint.cpp in Sources */,
@@ -2091,6 +2102,7 @@
 				379BB9B317F03F3700829B88 /* UIWidget.cpp in Sources */,
 				379BB9B417F03F3700829B88 /* UILayout.cpp in Sources */,
 				379BB9B617F03F3700829B88 /* UILayoutParameter.cpp in Sources */,
+				4B0D76CE18CE062800703DC9 /* PopupShop.cpp in Sources */,
 				379BB9B717F03F3700829B88 /* UILayoutDefine.cpp in Sources */,
 				379BB9B817F03F3700829B88 /* CocosGUI.cpp in Sources */,
 				379BB9B917F03F3700829B88 /* UIHelper.cpp in Sources */,

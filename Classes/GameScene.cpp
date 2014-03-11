@@ -15,6 +15,7 @@
 #include "GameData.h"
 #include "AudioController.h"
 #include "CCShake.h"
+#include "PopupShop.h"
 #include <cmath>
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "../proj.android/jni/hellocpp/UtilsJNI.h"
@@ -140,7 +141,15 @@ bool GameScene::init(){
     goldNmb->setAnchorPoint(ccp(0, 0.5));
     goldNmb->setPosition(ccp(goldIcon->getPositionX() + goldIcon->getContentSize().width + 2, goldIcon->getPositionY() - goldIcon->getContentSize().height * 0.5));
     this->addChild(goldNmb, Z_GOLD);
-            
+    
+    //goldShop
+//    goldShop = AniButton::create(KMenuShop, Utils::createSprite("goldToShop"));
+//    goldShop->setAnchorPoint(ccp(0, 0.5));
+//    goldShop->setPosition(goldNmb->getPosition() + ccp(goldNmb->getContentSize().width + 2, 0));
+//    this->addChild(goldShop);
+    //game ui
+    GameUI::create(_scene, KLayerOrderGameUI, this, goldNmb->getPosition() + ccp(goldNmb->getContentSize().width + 2, 0));
+    
     //help
     help = Utils::createSprite("tip_help");
     help->setPosition(ccpAdd(center, ccp(0, -20)));
@@ -154,6 +163,7 @@ bool GameScene::init(){
     //buttonsArray
     buttonArray = CCArray::create();
     buttonArray->retain();
+    //buttonArray->addObject(goldShop);
     
     //touch events
     this->setTouchEnabled(true);
@@ -176,12 +186,20 @@ void GameScene::onExit()
 }
 
 void GameScene::registerWithTouchDispatcher(){
-    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, -KLayerOrderGame, true);
 }
 
 bool GameScene::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
     CCPoint pos = pTouch->getLocationInView();
     pos = CCDirector::sharedDirector()->convertToGL(pos);
+    
+    lastPressedItem = Utils::buttonHitTest(pos, buttonArray);
+    if (lastPressedItem >= 0) {
+        AniButton *btn = (AniButton*)buttonArray->objectAtIndex(lastPressedItem);
+        btn->touch();
+        return true;
+    }
+    
     
     if (GameState == GameReady) {
         setStatus(GameRun);
@@ -262,14 +280,16 @@ void GameScene::birdDie(bool dieReasonFall){
 
 void GameScene::showSave()
 {
+//    resurCount = dieCount;
+//    if (goldCount >= resurCount) {
+//    //if (dieCount <= 3 && goldCount >= 10 * dieCount) {
+//        PopupSave::create(_scene, KLayerOrderPopupSave, this, resurCount);
+//    }
+//    else {
+//        showResult();
+//    }
     resurCount = dieCount;
-    if (goldCount >= resurCount) {
-    //if (dieCount <= 3 && goldCount >= 10 * dieCount) {
-        PopupSave::create(_scene, KLayerOrderPopupSave, this, resurCount);
-    }
-    else {
-        showResult();
-    }
+    popupSave = PopupSave::create(_scene, KLayerOrderPopupSave, this, resurCount);
 }
 
 void GameScene::showResult()
@@ -510,8 +530,9 @@ void GameScene::playSfxPoint()
     AudioController::sharedInstance()->playEffect("sfx_point");
 }
 
-void GameScene::clickItem(int bid){
-
+void GameScene::clickItem(int bid)
+{
+    this->menuCommand(bid);
 }
 
 bool GameScene::onPopupEventMenuCommand(cocos2d::CCLayer *component, const int menuId)
@@ -542,6 +563,16 @@ void GameScene::menuCommand(int menuId)
         showResult();
     }
     else if (menuId == KMenuSaveOk) {
+        //gold not enough
+        if (goldCount < resurCount) {
+            PopupShop *pShop = PopupShop::create(_scene, KLayerOrderPopupShop, this);
+            return;
+        }
+        
+        
+        //gold enough
+        popupSave->dismiss();
+        
         CCSize screenSize = CCDirector::sharedDirector()->getWinSize();
         CCPoint center = ccp(screenSize.width * 0.5, screenSize.height * 0.5);
         
@@ -574,6 +605,26 @@ void GameScene::menuCommand(int menuId)
         
         //game state
         GameState = GameReady;
+    }
+    else if (menuId == KMenuShop)
+    {
+        PopupShop *pShop = PopupShop::create(_scene, KLayerOrderPopupShop, this);
+    }
+    else if (menuId == KMenuShopClose)
+    {
+        
+    }
+    else if (menuId == KMenuShopOne)
+    {
+        
+    }
+    else if (menuId == KMenuShopTwo)
+    {
+        
+    }
+    else if (menuId == KMenuShopThree)
+    {
+        
     }
 }
 

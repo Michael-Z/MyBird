@@ -139,7 +139,7 @@ void PopupSave::clickItem(int bid)
         _delegate->onPopupEventMenuCommand(this, bid);
     }
     
-    if (bid == KMenuSaveClose || bid == KMenuSaveOk) {
+    if (bid == KMenuSaveClose) {
         this->dismiss();
     }
 }

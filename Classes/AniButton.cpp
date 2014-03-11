@@ -9,7 +9,7 @@
 #include "AniButton.h"
 const int AniButtonDownAction = 1;
 
-AniButton::AniButton():aniButton_up(NULL),aniButton_down(NULL)
+AniButton::AniButton():aniButton_up(NULL),aniButton_down(NULL),aniButton_label(NULL)
 {
     
 }
@@ -19,7 +19,7 @@ AniButton::~AniButton()
     
 }
 
-bool AniButton::init(const int bid, CCNode *upNode, CCNode *downNode, int type)
+bool AniButton::init(const int bid, CCNode *upNode, CCNode *downNode, int type, CCNode *label)
 {
     if (!CCNode::init()) {
         return false;
@@ -31,6 +31,9 @@ bool AniButton::init(const int bid, CCNode *upNode, CCNode *downNode, int type)
         aniButton_down = downNode;
     }
     aniButton_type = type;
+    if (label != NULL) {
+        aniButton_label = label;
+    }
     
     CCSize size = aniButton_up->getContentSize();
     this->setContentSize(size);
@@ -45,15 +48,21 @@ bool AniButton::init(const int bid, CCNode *upNode, CCNode *downNode, int type)
         aniButton_down->setVisible(false);
     }
     
+    if (aniButton_label != NULL) {
+        aniButton_label->setAnchorPoint(ccp(0.5, 0.5));
+        aniButton_label->setPosition(size.width * 0.5, size.height * 0.5);
+        this->addChild(aniButton_label);
+    }
+    
     this->setAniNodeHotRect(CCRectMake(0, 0, size.width, size.height));
     
     return true;
 }
 
-AniButton* AniButton::create(const int bid, cocos2d::CCNode *upNode, cocos2d::CCNode *downNode, int type)
+AniButton* AniButton::create(const int bid, cocos2d::CCNode *upNode, cocos2d::CCNode *downNode, int type, cocos2d::CCNode *label)
 {
     AniButton *abtn = new AniButton();
-    if (abtn && abtn->init(bid, upNode, downNode, type)) {
+    if (abtn && abtn->init(bid, upNode, downNode, type, label)) {
         abtn->autorelease();
         return abtn;
     }

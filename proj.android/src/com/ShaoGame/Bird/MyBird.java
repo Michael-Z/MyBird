@@ -147,7 +147,7 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
     public static void sendToWX()
     {
     	if (api.isWXAppInstalled()) {
-    		
+    		api.openWXApp();
     		//startActivity(new Intent())
     		
     		WXTextObject textObj = new WXTextObject();

@@ -31,15 +31,30 @@ const int KMenuRestart = 1;
 const int KMenuRecord = 2;
 const int KMenuSaveClose = 3;
 const int KMenuSaveOk = 4;
+const int KMenuShopOne = 5;
+const int KMenuShopTwo = 6;
+const int KMenuShopThree = 7;
+const int KMenuShopClose = 8;
+const int KMenuShop = 9;
 
 const int KLayerTagPopupResult = 1;
 const int KLayerTagPopupStart = 2;
 const int KLayerTagPopupSave = 3;
+const int KLayerTagPopupShop = 4;
+const int KLayerTagGameUI = 5;
 
 const int KLayerOrderGame = 1;
 const int KLayerOrderPopupStart = 2;
 const int KLayerOrderPopupSave = 8;
 const int KLayerOrderPopupShop = 9;
 const int KLayerOrderPopupResult = 10;
+const int KLayerOrderGameUI = 11;
 
+const int KShopOne = 20;
+const int KShopTwo = 50;
+const int KShopThree = 150;
+
+const int KShopCostOne = 1;
+const int KShopCostTwo = 2;
+const int KShopCostThree = 5;
 #endif

@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/GameScene.cpp"
-            timestampString = "415727398.65907"
+            timestampString = "416166011.493865"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "GameScene::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)"
             landmarkType = "5">
          </BreakpointContent>
@@ -196,57 +196,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/GameScene.cpp"
-            timestampString = "415729284.312606"
+            timestampString = "416166011.493865"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
-            landmarkName = "GameScene::showSave()"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "GameScene::init()"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GameScene::showSave()"
-                  moduleName = "MyBird"
-                  urlString = "file:///Users/yuchen/Desktop/developer/cocos2d-x-2.2.2/projects/MyBird/Classes/GameScene.cpp"
-                  timestampString = "415643615.594775"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "263"
-                  endingLineNumber = "263"
-                  offsetFromSymbolStart = "18">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GameScene::birdDie(bool)"
-                  moduleName = "MyBird"
-                  urlString = "file:///Users/yuchen/Desktop/developer/cocos2d-x-2.2.2/projects/MyBird/Classes/GameScene.cpp"
-                  timestampString = "415643615.595454"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "263"
-                  endingLineNumber = "263"
-                  offsetFromSymbolStart = "79">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GameScene::birdDie(bool)"
-                  moduleName = "MyBird"
-                  urlString = "file:///Users/yuchen/Desktop/developer/cocos2d-x-2.2.2/projects/MyBird/Classes/GameScene.cpp"
-                  timestampString = "415643615.596189"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "263"
-                  endingLineNumber = "263"
-                  offsetFromSymbolStart = "208">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

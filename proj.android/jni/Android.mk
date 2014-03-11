@@ -17,10 +17,12 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/CompnNumber.cpp \
                    ../../Classes/GameData.cpp \
                    ../../Classes/GameScene.cpp \
+                   ../../Classes/GameUI.cpp \
                    ../../Classes/Pipe.cpp \
                    ../../Classes/PopupEventDelegate.cpp \
                    ../../Classes/PopupResult.cpp \
                    ../../Classes/PopupSave.cpp \
+                   ../../Classes/PopupShop.cpp \
                    ../../Classes/PopupStart.cpp \
                    ../../Classes/SplashScene.cpp \
                    ../../Classes/Utils.cpp \

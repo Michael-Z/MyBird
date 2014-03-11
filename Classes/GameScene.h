@@ -16,6 +16,8 @@
 #include "CompnNumber.h"
 #include "PopupEventDelegate.h"
 #include "Bird.h"
+#include "GameUI.h"
+#include "PopupSave.h"
 USING_NS_CC;
 using namespace std;
 
@@ -91,6 +93,8 @@ private:
     CCArray *buttonArray;
     CCSprite *goldIcon;
     CompnNumber *goldNmb;
+    PopupSave *popupSave;
+    //AniButton *goldShop;
     
     int GameState;
     int score;

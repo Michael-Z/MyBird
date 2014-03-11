@@ -19,8 +19,8 @@ class AniButton : public AniNode
 public:
     AniButton();
     ~AniButton();
-    virtual bool init(const int bid, CCNode *upNode, CCNode *downNode, int type);
-    static AniButton* create(const int bid, CCNode *upNode, CCNode *downNode = NULL, int type = 1);
+    virtual bool init(const int bid, CCNode *upNode, CCNode *downNode, int type, CCNode *label);
+    static AniButton* create(const int bid, CCNode *upNode, CCNode *downNode = NULL, int type = 1, CCNode *label = NULL);
     
     //aniButton_type : 1.按下松开效果 2.切换
     CC_SYNTHESIZE(int, aniButton_type, AniButtonType);
@@ -30,7 +30,7 @@ public:
     void click();
     
 private:
-    CCNode *aniButton_up, *aniButton_down;
+    CCNode *aniButton_up, *aniButton_down, *aniButton_label;
 };
 
 #endif /* defined(__MyFish__AniButton__) */
