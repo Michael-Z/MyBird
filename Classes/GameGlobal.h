@@ -18,7 +18,7 @@ const float SpeedPipe = SpeedLand;
 const float SpeedBirdDie = 300;
 
 const int PipeWidth = 52;
-const int LandMoreWidth = 32;
+const int LandMoreWidth = 48;
 
 const int ActionTagBirdFall = 11;
 const int ActionTagBirdFly = 12;
@@ -42,6 +42,7 @@ const int KLayerTagPopupStart = 2;
 const int KLayerTagPopupSave = 3;
 const int KLayerTagPopupShop = 4;
 const int KLayerTagGameUI = 5;
+const int KLayerTagGame = 6;
 
 const int KLayerOrderGame = 1;
 const int KLayerOrderPopupStart = 2;
@@ -50,11 +51,11 @@ const int KLayerOrderPopupShop = 9;
 const int KLayerOrderPopupResult = 10;
 const int KLayerOrderGameUI = 11;
 
-const int KShopOne = 20;
-const int KShopTwo = 50;
+const int KShopOne = 30;
+const int KShopTwo = 80;
 const int KShopThree = 150;
 
-const int KShopCostOne = 1;
-const int KShopCostTwo = 2;
-const int KShopCostThree = 5;
+const int KShopCostOne = 2;
+const int KShopCostTwo = 4;
+const int KShopCostThree = 6;
 #endif

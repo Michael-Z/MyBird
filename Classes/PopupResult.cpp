@@ -65,14 +65,14 @@ bool PopupResult::init(){
     //_score = 31;
     if (_score >= 10) {
         int a = _score/10;
-        int b = a%9 - 1;
-        char *buffer[] = {"medal_1", "medal_2", "medal_3", "medal_4", "medal_5", "medal_6", "medal_7", "medal_8"};
+        int b = a%4;
+        char *buffer[] = {"medal_0", "medal_1", "medal_2", "medal_3"};
         _medal = Utils::createSprite(buffer[b]);
         _medal->setPosition(ccpAdd(_resultBg->getPosition(), ccp(-65, -5)));
         _panel->addChild(_medal);
         _medal->setVisible(false);
         
-        _flash = CCSprite::createWithSpriteFrameName("flash_1");
+        _flash = Utils::createSprite("flash_1");
         _panel->addChild(_flash);
         randFlashPosition();
         

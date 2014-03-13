@@ -10,8 +10,52 @@
 #include "AniButton.h"
 
 //for this game only
+static map<string, vector<string> > atlasMap = map<string, vector<string> >();
+map<string, vector<string> > Utils::sharedAtlasMap(){
+    if (atlasMap.size() == 0) {
+        unsigned char* fileContents = NULL;
+        unsigned long fileSize = 0;
+        string contents;
+        string thisLine;
+        vector<string> lines;
+        
+        string fullfilename = "atlas.txt";
+        string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(fullfilename.c_str());
+        fileContents = CCFileUtils::sharedFileUtils()->getFileData(path.c_str(), "r", &fileSize);
+        contents.append((char*)fileContents, fileSize);
+        istringstream fileStringStream(contents);
+        while (getline(fileStringStream, thisLine)) {
+            lines.push_back(thisLine);
+        }
+        if(fileContents) {
+            delete[] fileContents;
+            fileContents = NULL;
+        }
+        
+        
+        int idx = 0;
+        while (idx < lines.size()) {
+            string line = lines[idx];
+            vector<string> v = componentsSeparatedByString(line, " ");
+            atlasMap[v[0]] = v;
+            idx++;
+        }
+    }
+    
+    return atlasMap;
+}
+
 CCSprite* Utils::createSprite(const char *name){
-    CCSprite *sprite = CCSprite::createWithSpriteFrameName(name);
+    int w = 1024;
+    int h = 1024;
+    CCSprite *sprite;
+    vector<string> pos = sharedAtlasMap()[name];
+    if (pos.size() > 0) {
+        sprite = CCSprite::create("atlas.png", CCRectMake(atof(pos[3].c_str()) * w, atof(pos[4].c_str()) * h, atof(pos[5].c_str()) * w, atof(pos[6].c_str()) * h));
+    }
+    else {
+        sprite = CCSprite::createWithSpriteFrameName(name);
+    }
     return sprite;
 };
 
@@ -24,16 +68,27 @@ CCArray* Utils::createAnimArray(const string &name, int count){
 CCArray* Utils::createAnimArray(const string &name, int begin, int end)
 {
     CCArray *animArray = CCArray::createWithCapacity(end - begin + 1);
-
+    int w = 1024;
+    int h = 1024;
     int idx = begin;
     while (idx <= end) {
-        //        stringstream stream;
-        //        stream << name << "_" << idx;
-        //        string idxName = stream.str();
+        stringstream stream;
+        stream << name << "_" << idx;
+        string idxName = stream.str();
         
-        char buffer[50];
-        sprintf(buffer, "%s_%d", name.c_str(), idx);
-        CCSpriteFrame *spriteFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(buffer);
+//        char buffer[50];
+//        sprintf(buffer, "%s_%d", name.c_str(), idx);
+        
+        vector<string> pos = sharedAtlasMap()[idxName];
+        CCSpriteFrame *spriteFrame;
+        if (pos.size() > 0) {
+            spriteFrame = CCSpriteFrame::create("atlas.png", CCRectMake(atof(pos[3].c_str()) * w, atof(pos[4].c_str()) * h, atof(pos[5].c_str()) * w, atof(pos[6].c_str()) * h));
+
+        }
+        else {
+            spriteFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(idxName.c_str());
+        }
+        
         animArray->addObject(spriteFrame);
         idx++;
     }

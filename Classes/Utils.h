@@ -18,6 +18,8 @@ using namespace std;
 class Utils : public CCObject{
 public:
     //for this game only
+    static map<string, vector<string> > sharedAtlasMap();
+    
     static CCSprite* createSprite(const char *name);
     
     //for common all

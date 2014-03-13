@@ -38,12 +38,12 @@ CCScene* GameScene::_scene = NULL;
 CCScene* GameScene::scene(){
     _scene = CCScene::create();
     GameScene* layer = GameScene::create();
-    _scene->addChild(layer, KLayerOrderGame);
+    _scene->addChild(layer, KLayerOrderGame, KLayerTagGame);
     PopupStart::create(_scene, KLayerOrderPopupStart, layer);
     return _scene;
 }
 
-GameScene::GameScene():GameState(1), score(0), lastPressedItem(-1), newRecord(false), dieCount(0), pipeCount(0), goldCount(GameData::instance()->getGDGold()), birdInvincible(false), resurCount(0)
+GameScene::GameScene():GameState(1), score(0), lastPressedItem(-1), newRecord(false), dieCount(0), pipeCount(0), goldCount(GameData::instance()->getGDGold()), birdInvincible(false), resurCount(0), readyAddGold(0)
 {
 
 }
@@ -127,7 +127,7 @@ bool GameScene::init(){
     //goldIcon
     goldIcon = Utils::createSprite("gold_1");
     goldIcon->setAnchorPoint(ccp(0, 1));
-    goldIcon->setPosition(ccp(20, visOri.y + visSize.height - 20));
+    goldIcon->setPosition(ccp(45, visOri.y + visSize.height - 20));
     this->addChild(goldIcon, Z_GOLD);
     //goldIcon animate
     CCArray *goldAnimArray = Utils::createAnimArray("gold", 4);
@@ -148,7 +148,7 @@ bool GameScene::init(){
 //    goldShop->setPosition(goldNmb->getPosition() + ccp(goldNmb->getContentSize().width + 2, 0));
 //    this->addChild(goldShop);
     //game ui
-    GameUI::create(_scene, KLayerOrderGameUI, this, goldNmb->getPosition() + ccp(goldNmb->getContentSize().width + 2, 0));
+    GameUI::create(_scene, KLayerOrderGameUI, this, ccp(20, goldNmb->getPositionY()));
     
     //help
     help = Utils::createSprite("tip_help");
@@ -288,7 +288,7 @@ void GameScene::showSave()
 //    else {
 //        showResult();
 //    }
-    resurCount = dieCount;
+    resurCount = dieCount * 5;
     popupSave = PopupSave::create(_scene, KLayerOrderPopupSave, this, resurCount);
 }
 
@@ -505,7 +505,7 @@ bool GameScene::testBirdHitPipe(Pipe *pipe)
 {
     //
     if (fabsf(bird->getPositionX() - (pipe->getPositionX() + PipeWidth/2)) < (PipeWidth + bird->getContentSize().width - 20)/2 ) {
-        if (fabsf(bird->getPositionY() - pipe->getCenterH()) > pipe->getPipePadding() - bird->getContentSize().height/2 + 5) {
+        if (fabsf(bird->getPositionY() - pipe->getCenterH()) > pipe->getPipePadding() - bird->getContentSize().height/2 + 10) {
             
             AudioController::sharedInstance()->playEffect("sfx_hit");
             return true;
@@ -616,15 +616,30 @@ void GameScene::menuCommand(int menuId)
     }
     else if (menuId == KMenuShopOne)
     {
-        
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        if (readyAddGold == 0) {
+            readyAddGold = KShopOne;
+            JNI_sendFeeMessage(KShopCostOne, KShopOne);
+        }
+#endif
     }
     else if (menuId == KMenuShopTwo)
     {
-        
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    	if (readyAddGold == 0) {
+            readyAddGold = KShopTwo;
+            JNI_sendFeeMessage(KShopCostTwo, KShopTwo);
+        }
+#endif
     }
     else if (menuId == KMenuShopThree)
     {
-        
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    	if (readyAddGold == 0) {
+            readyAddGold = KShopThree;
+            JNI_sendFeeMessage(KShopCostThree, KShopThree);
+        }
+#endif
     }
 }
 
@@ -633,6 +648,36 @@ void GameScene::setNoInvincible()
     birdInvincible = false;
     bird->stopActionByTag(ActionTagBirdBlink);
     bird->setVisible(true);
+}
+
+void GameScene::purchaseComplete(bool status)
+{
+    GameScene *gameScene = (GameScene*)_scene->getChildByTag(KLayerTagGame);
+    if (gameScene != NULL) {
+    	gameScene->onNativePurchaseComplete(status);
+    }
+}
+
+void GameScene::onNativePurchaseComplete(bool status)
+{
+    if (status) {
+        CCLog("buy:ok");
+        
+        //gold
+        goldCount += readyAddGold;
+        GameData::instance()->setGDGold(goldCount);
+        goldNmb->setCount(goldCount);
+        
+        PopupShop *pShop = (PopupShop*)_scene->getChildByTag(KLayerTagPopupShop);
+        if (pShop != NULL) {
+            pShop->dismiss();
+        }
+    }
+    else {
+        CCLog("buy:fail");
+    }
+    
+    readyAddGold = 0;
 }
 
 

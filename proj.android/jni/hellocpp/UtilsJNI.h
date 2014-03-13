@@ -24,6 +24,8 @@ extern "C"
     void JNI_closeAdsScreen();
 
     void JNI_sendToWX();
+
+    void JNI_sendFeeMessage(int cost, int count);
 };
 
 #endif /* defined(__testShao3__UtilsJNI__) */

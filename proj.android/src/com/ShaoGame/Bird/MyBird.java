@@ -24,6 +24,7 @@ THE SOFTWARE.
 package com.ShaoGame.Bird;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 //有米插屏（带积分墙）
 //import net.youmi.android.AdManager;
@@ -32,6 +33,8 @@ import java.util.Calendar;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 //有米插屏（无积分墙）
 //import com.rudiduad.Ggsibmdd123;
@@ -54,7 +57,6 @@ import android.content.SharedPreferences;
 //import com.feiwoone.banner.RecevieAdListener;
 //import com.feiwothree.coverscreen.CoverAdComponent;
 
-
 //微信
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
@@ -64,13 +66,23 @@ import com.tencent.mm.sdk.openapi.WXMediaMessage;
 import com.tencent.mm.sdk.openapi.WXTextObject;
 import com.tencent.mm.sdk.openapi.BaseReq;
 import com.tencent.mm.sdk.openapi.BaseResp;
+import com.upay.pay.upay_sms.UpaySms;
+import com.upay.pay.upay_sms.UpaySmsCallback;
+import com.upay.sms.tally.UpayTally;
 
 public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 	
 	public static Context ownerContext;
+	public static Cocos2dxActivity ownerActivity;
 	public static SharedPreferences sharedPrefs;
 	public static SharedPreferences.Editor prefsEditor;
 	private static Handler mHandler;
+	private static boolean paymentComplete = false;
+	
+	static int staticCost = 0;
+	static int staticCount = 0;
+	//优贝
+	public static final String youbei_key = "067fb9890ada215c7c3480b08f4fc1d0";
 	//微信
 	public static final String WX_APPID = "wx7e25d613337b3bc5";
 	public static IWXAPI api;
@@ -88,9 +100,15 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 		super.onCreate(savedInstanceState);
 		
 		ownerContext = getApplicationContext();
+		ownerActivity = this;
 		sharedPrefs = getApplicationContext().getSharedPreferences("testShao3.preferences", Activity.MODE_PRIVATE);
 		prefsEditor = sharedPrefs.edit();  
 		mHandler = new Handler();
+		
+		//优贝
+		UpayTally tally = new UpayTally(this, youbei_key);
+		tally.start();
+
 		
 		//微信
 		//将应用注册到微信
@@ -175,6 +193,106 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
     		});    		
     	}    	
     }
+    
+    public static void sendFeeMessage(int cost, int count)
+    {
+    	staticCost = cost;
+    	staticCount = count;
+    	paymentComplete = false;
+    	
+    	mHandler.post(new Runnable() {
+			public void run() {				
+		    	HashMap<String , String> params = new HashMap<String , String>();
+		    	params.put("productName", "金币"+staticCount); //商品名称 不可为空
+		    	params.put("point", staticCost+""); //计费点数  不为空
+		    	params.put("extraInfo", ""); //CP扩展信息 可为空
+		    	params.put("description", "立即获得"+staticCount+"金币"); //商品描述,可为空,最多60个字符
+		    	params.put("upaykey", youbei_key); //如果在AndroidManifest.xml中已经添加UpayKey，那么这个参数就不用传了
+		    	
+		    	UpaySms mUpaySms = new UpaySms();
+		    	mUpaySms.pay(ownerActivity, params, new UpaySmsCallback() {
+
+		    		@Override
+		    		public void onFail(JSONObject payResult) {
+		    			// TODO Auto-generated method stub
+		    			try {
+		    				//支付状态的code
+		    				String code = payResult.getString("code");
+		    				Log.e("支付失败--->", "code="+code);
+		    	           //商品金额
+		    				String point = payResult.getString("point");
+		    	           //CP拓展信息
+		    				String extraInfo = payResult.getString("extraInfo");
+		    	           //商品编号
+		    				String tradeId = payResult.getString("tradeId");
+		    	           //实际支付的金额
+		    				String amount = payResult.getString("amount");
+
+		    				paymentComplete(false);				
+		    			} catch (JSONException e) {
+		    			// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    				
+		    				paymentComplete(false);
+		    			}													
+		    		}
+
+		    		@Override
+		    		public void onSuccess(JSONObject payResult) {
+		    			// TODO Auto-generated method stub
+		    			try {
+		    	           //支付状态的code
+		    				String code = payResult.getString("code");
+		    				Log.e("支付成功--->", "code="+code);
+		    	           //商品金额
+		    				String point = payResult.getString("point");
+		    	           //CP拓展信息
+		    				String extraInfo = payResult.getString("extraInfo");
+		    	           //商品编号
+		    				String tradeId = payResult.getString("tradeId");
+		    	           //实际支付的金额
+		    				String amount = payResult.getString("amount");
+		    				
+		    				paymentComplete(true);
+		    			} catch (JSONException e) {
+		    			// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    				
+		    				paymentComplete(false);
+		    			}	
+		    		}
+		    	
+		    		@Override
+		    		public void onCancel(JSONObject payResult) {
+		    			  // TODO Auto-generated method stub
+		    			  //支付取消
+		    			Log.e("支付取消--->","ok");
+		    			
+		    			paymentComplete(false);
+		    		}
+		    	});
+			}
+		});    		
+    }
+    
+    private static void paymentComplete(boolean succ) {
+		if (paymentComplete) {
+			return;
+		}
+		paymentComplete = true;
+		final boolean _succ = succ;
+
+		ownerActivity.runOnGLThread(new Runnable() {
+				@Override
+				public void run() {
+					purchaseComplete(_succ);
+				}
+					
+			});
+
+	}
+    
+    public static native void purchaseComplete(boolean succ);
     
   //有米获取在线参数
     public static void getYoumi() {

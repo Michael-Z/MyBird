@@ -76,6 +76,10 @@ public:
     
     void setNoInvincible();
     
+    static void purchaseComplete(bool status);
+    
+    void onNativePurchaseComplete(bool status);
+    
 protected:
 
 private:
@@ -105,6 +109,7 @@ private:
     int goldCount;
     bool birdInvincible;
     int resurCount;
+    int readyAddGold;
 };
 
 #endif /* defined(__testShao3__GameScene__) */

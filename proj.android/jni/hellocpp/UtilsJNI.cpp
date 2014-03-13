@@ -8,6 +8,7 @@
 
 #include "cocos2d.h"
 #include "UtilsJNI.h"
+#include "GameScene.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include <jni.h>
 #include "platform/android/jni/JniHelper.h"
@@ -110,4 +111,23 @@ extern "C"
 		t.env->CallStaticVoidMethod(t.classID, t.methodID);
 		t.env->DeleteLocalRef(t.classID);
 	}
+
+    void JNI_sendFeeMessage(int cost, int count)
+	{
+		JniMethodInfo t;
+		if (!JniHelper::getStaticMethodInfo(t, CLASS_NAME, "sendFeeMessage", "(II)V")) {
+			return;
+		}
+
+		int v1 = cost;
+		int v2 = count;
+		t.env->CallStaticVoidMethod(t.classID, t.methodID, v1, v2);
+		t.env->DeleteLocalRef(t.classID);
+	}
+
+    void Java_com_ShaoGame_Bird_MyBird_purchaseComplete(JNIEnv *env, jobject thiz, jboolean succ)
+    {
+    	bool status = (bool)succ;
+    	GameScene::purchaseComplete(status);
+    }
 }

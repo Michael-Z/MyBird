@@ -45,7 +45,7 @@ bool Pipe::init(){
     
     //up
     char buffer[10];
-    sprintf(buffer, "pipeUp_%d", nmb);
+    sprintf(buffer, "pipeUp_%d", 1);
     pipeUp = Utils::createSprite(buffer);
     pipeUp->setAnchorPoint(ccp(0.0, 1.0));
     pipeUp->setPosition(ccp(0.0, centerH - pipePadding));
@@ -55,7 +55,7 @@ bool Pipe::init(){
     
     //down
     char bufferDown[10];
-    sprintf(bufferDown, "pipeDown_%d", nmb);
+    sprintf(bufferDown, "pipeDown_%d", 1);
     pipeDown = Utils::createSprite(bufferDown);
     pipeDown->setAnchorPoint(ccp(0.0, 0.0));
     pipeDown->setPosition(ccp(0.0, centerH + pipePadding));
