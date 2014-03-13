@@ -50,11 +50,11 @@ const int KLayerOrderPopupShop = 9;
 const int KLayerOrderPopupResult = 10;
 const int KLayerOrderGameUI = 11;
 
-const int KShopOne = 20;
-const int KShopTwo = 50;
+const int KShopOne = 50;
+const int KShopTwo = 90;
 const int KShopThree = 150;
 
-const int KShopCostOne = 1;
-const int KShopCostTwo = 2;
-const int KShopCostThree = 5;
+const int KShopCostOne = 4;
+const int KShopCostTwo = 6;
+const int KShopCostThree = 8;
 #endif

@@ -288,7 +288,7 @@ void GameScene::showSave()
 //    else {
 //        showResult();
 //    }
-    resurCount = dieCount;
+    resurCount = dieCount * 5;
     popupSave = PopupSave::create(_scene, KLayerOrderPopupSave, this, resurCount);
 }
 
