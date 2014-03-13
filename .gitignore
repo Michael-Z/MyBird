@@ -7,3 +7,5 @@ proj.android/libs/armeabi
 proj.android/.project
 proj.android/.settings
 proj.ios
+
+proj.ios/MyBird.xcodeproj/
