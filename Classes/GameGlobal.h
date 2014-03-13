@@ -9,6 +9,8 @@
 #ifndef testShao3_GameGlobal_h
 #define testShao3_GameGlobal_h
 
+const bool GameShowShop = true;
+
 const int GameReady = 1;
 const int GameRun = 2;
 const int GameEnd = 3;
