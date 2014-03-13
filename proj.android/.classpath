@@ -6,7 +6,6 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="lib" path="libs/libammsdk.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/Upay_Hfb_External.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/Upay_Sms_1.7.jar"/>
+	<classpathentry kind="lib" path="libs/YoumiSdk_v4.06_2014-02-26.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

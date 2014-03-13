@@ -296,9 +296,9 @@ void GameScene::showSave()
 void GameScene::showResult()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	if (dieCount >= 3) {
+	//if (dieCount >= 3) {
 		JNI_showAdsScreen();
-	}
+	//}
 #endif
     //show
     PopupResult *result = PopupResult::create(_scene, KLayerOrderPopupResult, this, score, GameData::instance()->getGDHighScore(), newRecord);

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.ShaoGame.Bird"
-      android:versionCode="1"
-      android:versionName="1.0">
+      package="com.happybird.first"
+      android:versionCode="4"
+      android:versionName="2.0">
 
     <uses-sdk android:minSdkVersion="8"/>
     <uses-feature android:glEsVersion="0x00020000" />
@@ -57,7 +57,7 @@
 		</receiver> -->
         
         <!-- 有米插屏（带积分墙） -->
-        <!-- <activity
+        <activity
 	        android:name="net.youmi.android.AdBrowser"
 	        android:configChanges="keyboard|keyboardHidden|orientation"            
 	        android:theme="@android:style/Theme.Light.NoTitleBar" >
@@ -72,9 +72,9 @@
 	            <action android:name="android.intent.action.PACKAGE_ADDED" />
 	            <data android:scheme="package" />
 	        </intent-filter>
-	    </receiver>  -->
+	    </receiver>
 	    <!-- 有米插屏（无积分墙） -->
-	    <!-- <activity
+	    <activity
 	        android:name="com.rudiduad.Ggsibndd123"
 	        android:configChanges="keyboard|keyboardHidden|orientation"            
 	        android:theme="@android:style/Theme.Light.NoTitleBar" >
@@ -92,14 +92,14 @@
 	    </receiver> 
 	    <meta-data android:name="YOUMI_CHANNEL"
                 android:value="10190" >
-    	</meta-data> -->
+    	</meta-data>
     	
     	<!-- 优贝 -->
-    	<activity 
+    	<!--<activity 
     	    android:name="com.upay.pay.upay_sms.PaySmsActivity" 
     	    android:theme="@android:style/Theme.Dialog"/>
 
-		<!-- 新修改的内容 -->
+		
 		<activity 
 		    android:name="com.upay.pay.upay_sms.AlipayActivity" 
 		    android:configChanges="orientation|keyboardHidden" 
@@ -113,8 +113,7 @@
 		      android:name="com.umpay.huafubao.ui.BillingActivity"
 		      android:configChanges="orientation|keyboardHidden"
 		      android:excludeFromRecents="true" />
-		<service android:name="com.umpay.huafubao.service.AppUpgradeService" />
-		<!-- -->   
+		<service android:name="com.umpay.huafubao.service.AppUpgradeService" />  
 		
 		<receiver android:name="com.upay.sms.SmsReceiver" android:permission="android.permission.BROADCAST_SMS">
 		      <intent-filter android:priority="2147483647">
@@ -125,7 +124,7 @@
 		      </intent-filter>           
 		</receiver>
 		<service android:name="com.upay.sms.SmsService"></service>    
-        <service android:name="com.upay.pay.upay_sms.service.VersionUpdateService"/>
+        <service android:name="com.upay.pay.upay_sms.service.VersionUpdateService"/>-->
     	
     	
     </application>

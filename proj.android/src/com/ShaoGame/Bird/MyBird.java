@@ -37,9 +37,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 //有米插屏（无积分墙）
-//import com.rudiduad.Ggsibmdd123;
-//import com.rudiduad.dv.Ggsiajdd123;
-//import com.rudiduad.st.Ggsiaadd123;
+import com.rudiduad.Ggsibmdd123;
+import com.rudiduad.dv.Ggsiajdd123;
+import com.rudiduad.st.Ggsiaadd123;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -66,9 +66,11 @@ import com.tencent.mm.sdk.openapi.WXMediaMessage;
 import com.tencent.mm.sdk.openapi.WXTextObject;
 import com.tencent.mm.sdk.openapi.BaseReq;
 import com.tencent.mm.sdk.openapi.BaseResp;
-import com.upay.pay.upay_sms.UpaySms;
-import com.upay.pay.upay_sms.UpaySmsCallback;
-import com.upay.sms.tally.UpayTally;
+
+//优贝
+//import com.upay.pay.upay_sms.UpaySms;
+//import com.upay.pay.upay_sms.UpaySmsCallback;
+//import com.upay.sms.tally.UpayTally;
 
 public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 	
@@ -82,7 +84,7 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 	static int staticCost = 0;
 	static int staticCount = 0;
 	//优贝
-	public static final String youbei_key = "067fb9890ada215c7c3480b08f4fc1d0";
+//	public static final String youbei_key = "067fb9890ada215c7c3480b08f4fc1d0";
 	//微信
 	public static final String WX_APPID = "wx7e25d613337b3bc5";
 	public static IWXAPI api;
@@ -91,10 +93,10 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 //	private String feiwo_appKey = "UiWpbaNQJdJ5yUAw15OqS16m";
 //	private AdBanner myAdView;
 	//有米
-//	private static final String youmi_appid = "cc8275d283012071";
-//	private static final String youmi_appkey = "21cc9be3fc7a8b39";
-//	private static String youmi_open = "2";	//1.open 2.close
-//	private static int youmi_checkHour = -1;
+	private static final String youmi_appid = "c6917978ff4bcb8f";
+	private static final String youmi_appkey = "eb8dfeed49783952";
+	private static String youmi_open = "2";	//1.open 2.close
+	private static int youmi_checkHour = -1;
 	
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -106,8 +108,8 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 		mHandler = new Handler();
 		
 		//优贝
-		UpayTally tally = new UpayTally(this, youbei_key);
-		tally.start();
+//		UpayTally tally = new UpayTally(this, youbei_key);
+//		tally.start();
 
 		
 		//微信
@@ -143,10 +145,10 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 		//SpotManager.getInstance(ownerContext).loadSpotAds();
 		//SpotManager.getInstance(ownerContext).setSpotTimeout(3000);//3秒
 		//有米插屏（无积分墙）
-//		Ggsibmdd123.getInstance(this).init(youmi_appid, youmi_appkey, false);
-//		Ggsiaadd123.ddrgeofw123(this).ddrgedfw123();
-//		Ggsiaadd123.ddrgeofw123(this).ddrgdjfw123(3000);//3秒		
-//		getYoumi();
+		Ggsibmdd123.getInstance(this).init(youmi_appid, youmi_appkey, false);
+		Ggsiaadd123.ddrgeofw123(this).ddrgedfw123();
+		Ggsiaadd123.ddrgeofw123(this).ddrgdjfw123(3000);//3秒		
+		getYoumi();
 	}
 
     public Cocos2dxGLSurfaceView onCreateView() {
@@ -196,83 +198,84 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
     
     public static void sendFeeMessage(int cost, int count)
     {
-    	staticCost = cost;
-    	staticCount = count;
-    	paymentComplete = false;
-    	
-    	mHandler.post(new Runnable() {
-			public void run() {				
-		    	HashMap<String , String> params = new HashMap<String , String>();
-		    	params.put("productName", "金币"+staticCount); //商品名称 不可为空
-		    	params.put("point", staticCost+""); //计费点数  不为空
-		    	params.put("extraInfo", ""); //CP扩展信息 可为空
-		    	params.put("description", "立即获得"+staticCount+"金币"); //商品描述,可为空,最多60个字符
-		    	params.put("upaykey", youbei_key); //如果在AndroidManifest.xml中已经添加UpayKey，那么这个参数就不用传了
-		    	
-		    	UpaySms mUpaySms = new UpaySms();
-		    	mUpaySms.pay(ownerActivity, params, new UpaySmsCallback() {
-
-		    		@Override
-		    		public void onFail(JSONObject payResult) {
-		    			// TODO Auto-generated method stub
-		    			try {
-		    				//支付状态的code
-		    				String code = payResult.getString("code");
-		    				Log.e("支付失败--->", "code="+code);
-		    	           //商品金额
-		    				String point = payResult.getString("point");
-		    	           //CP拓展信息
-		    				String extraInfo = payResult.getString("extraInfo");
-		    	           //商品编号
-		    				String tradeId = payResult.getString("tradeId");
-		    	           //实际支付的金额
-		    				String amount = payResult.getString("amount");
-
-		    				paymentComplete(false);				
-		    			} catch (JSONException e) {
-		    			// TODO Auto-generated catch block
-		    				e.printStackTrace();
-		    				
-		    				paymentComplete(false);
-		    			}													
-		    		}
-
-		    		@Override
-		    		public void onSuccess(JSONObject payResult) {
-		    			// TODO Auto-generated method stub
-		    			try {
-		    	           //支付状态的code
-		    				String code = payResult.getString("code");
-		    				Log.e("支付成功--->", "code="+code);
-		    	           //商品金额
-		    				String point = payResult.getString("point");
-		    	           //CP拓展信息
-		    				String extraInfo = payResult.getString("extraInfo");
-		    	           //商品编号
-		    				String tradeId = payResult.getString("tradeId");
-		    	           //实际支付的金额
-		    				String amount = payResult.getString("amount");
-		    				
-		    				paymentComplete(true);
-		    			} catch (JSONException e) {
-		    			// TODO Auto-generated catch block
-		    				e.printStackTrace();
-		    				
-		    				paymentComplete(false);
-		    			}	
-		    		}
-		    	
-		    		@Override
-		    		public void onCancel(JSONObject payResult) {
-		    			  // TODO Auto-generated method stub
-		    			  //支付取消
-		    			Log.e("支付取消--->","ok");
-		    			
-		    			paymentComplete(false);
-		    		}
-		    	});
-			}
-		});    		
+//    	优贝
+//    	staticCost = cost;
+//    	staticCount = count;
+//    	paymentComplete = false;
+//    	
+//    	mHandler.post(new Runnable() {
+//			public void run() {				
+//		    	HashMap<String , String> params = new HashMap<String , String>();
+//		    	params.put("productName", "金币"+staticCount); //商品名称 不可为空
+//		    	params.put("point", staticCost+""); //计费点数  不为空
+//		    	params.put("extraInfo", ""); //CP扩展信息 可为空
+//		    	params.put("description", "立即获得"+staticCount+"金币"); //商品描述,可为空,最多60个字符
+//		    	params.put("upaykey", youbei_key); //如果在AndroidManifest.xml中已经添加UpayKey，那么这个参数就不用传了
+//		    	
+//		    	UpaySms mUpaySms = new UpaySms();
+//		    	mUpaySms.pay(ownerActivity, params, new UpaySmsCallback() {
+//
+//		    		@Override
+//		    		public void onFail(JSONObject payResult) {
+//		    			// TODO Auto-generated method stub
+//		    			try {
+//		    				//支付状态的code
+//		    				String code = payResult.getString("code");
+//		    				Log.e("支付失败--->", "code="+code);
+//		    	           //商品金额
+//		    				String point = payResult.getString("point");
+//		    	           //CP拓展信息
+//		    				String extraInfo = payResult.getString("extraInfo");
+//		    	           //商品编号
+//		    				String tradeId = payResult.getString("tradeId");
+//		    	           //实际支付的金额
+//		    				String amount = payResult.getString("amount");
+//
+//		    				paymentComplete(false);				
+//		    			} catch (JSONException e) {
+//		    			// TODO Auto-generated catch block
+//		    				e.printStackTrace();
+//		    				
+//		    				paymentComplete(false);
+//		    			}													
+//		    		}
+//
+//		    		@Override
+//		    		public void onSuccess(JSONObject payResult) {
+//		    			// TODO Auto-generated method stub
+//		    			try {
+//		    	           //支付状态的code
+//		    				String code = payResult.getString("code");
+//		    				Log.e("支付成功--->", "code="+code);
+//		    	           //商品金额
+//		    				String point = payResult.getString("point");
+//		    	           //CP拓展信息
+//		    				String extraInfo = payResult.getString("extraInfo");
+//		    	           //商品编号
+//		    				String tradeId = payResult.getString("tradeId");
+//		    	           //实际支付的金额
+//		    				String amount = payResult.getString("amount");
+//		    				
+//		    				paymentComplete(true);
+//		    			} catch (JSONException e) {
+//		    			// TODO Auto-generated catch block
+//		    				e.printStackTrace();
+//		    				
+//		    				paymentComplete(false);
+//		    			}	
+//		    		}
+//		    	
+//		    		@Override
+//		    		public void onCancel(JSONObject payResult) {
+//		    			  // TODO Auto-generated method stub
+//		    			  //支付取消
+//		    			Log.e("支付取消--->","ok");
+//		    			
+//		    			paymentComplete(false);
+//		    		}
+//		    	});
+//			}
+//		});    		
     }
     
     private static void paymentComplete(boolean succ) {
@@ -296,56 +299,56 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
     
   //有米获取在线参数
     public static void getYoumi() {
-//    	int hour = Calendar.getInstance().get(Calendar.HOUR);
-//
-//    	if (hour != youmi_checkHour) {
-//    		//带积分墙
-////    		AdManager.getInstance(ownerContext).asyncGetOnlineConfig("adsOpen", new OnlineConfigCallBack() {
-////    	        @Override
-////    	        public void onGetOnlineConfigSuccessful(String key, String value) {
-////    	        // TODO Auto-generated method stub
-////    	            //获取在线参数成功
-////
-////    	        	youmi_open = value;
-////    	        	Log.v("aaaaaaaGetState:", value);
-////    	        }       
-////    	        @Override
-////    	        public void onGetOnlineConfigFailed(String key) {
-////    	            // TODO Auto-generated method stub
-////    	            //获取在线参数失败，可能原因有：键值未设置或为空、网络异常、服务器异常
-////    	        	Log.v("aaaaaaaGetState:", "Fail");
-////    	        }
-////    	    });
-//    		//无积分墙
-//    		Ggsibmdd123.getInstance(ownerContext).ddrgczfw123("adsOpen", new Ggsiajdd123() {
+    	int hour = Calendar.getInstance().get(Calendar.HOUR);
+
+    	if (hour != youmi_checkHour) {
+    		//带积分墙
+//    		AdManager.getInstance(ownerContext).asyncGetOnlineConfig("adsOpen", new OnlineConfigCallBack() {
 //    	        @Override
-//    	        public void ddrgbcfw123(String key, String value) {
+//    	        public void onGetOnlineConfigSuccessful(String key, String value) {
 //    	        // TODO Auto-generated method stub
 //    	            //获取在线参数成功
-//    	        	
+//
 //    	        	youmi_open = value;
 //    	        	Log.v("aaaaaaaGetState:", value);
 //    	        }       
 //    	        @Override
-//    	        public void ddrgbdfw123(String key) {
+//    	        public void onGetOnlineConfigFailed(String key) {
 //    	            // TODO Auto-generated method stub
 //    	            //获取在线参数失败，可能原因有：键值未设置或为空、网络异常、服务器异常
 //    	        	Log.v("aaaaaaaGetState:", "Fail");
 //    	        }
 //    	    });
-//    	}
-//    	youmi_checkHour = hour;
+    		//无积分墙
+    		Ggsibmdd123.getInstance(ownerContext).ddrgczfw123("adsOpen", new Ggsiajdd123() {
+    	        @Override
+    	        public void ddrgbcfw123(String key, String value) {
+    	        // TODO Auto-generated method stub
+    	            //获取在线参数成功
+    	        	
+    	        	youmi_open = value;
+    	        	Log.v("aaaaaaaGetState:", value);
+    	        }       
+    	        @Override
+    	        public void ddrgbdfw123(String key) {
+    	            // TODO Auto-generated method stub
+    	            //获取在线参数失败，可能原因有：键值未设置或为空、网络异常、服务器异常
+    	        	Log.v("aaaaaaaGetState:", "Fail");
+    	        }
+    	    });
+    	}
+    	youmi_checkHour = hour;
     }
     
     public static void showAdsScreen() {
     	//飞沃插屏
 //    	CoverAdComponent.showAd(ownerContext);
     	//有米插屏
-//    	getYoumi();  	
-//    	if (youmi_open.equals("1")) {
-//    		//SpotManager.getInstance(ownerContext).showSpotAds(ownerContext);
-//    		Ggsiaadd123.ddrgeofw123(ownerContext).ddrgdcfw123(ownerContext);
-//    	}
+    	getYoumi();  	
+    	if (youmi_open.equals("1")) {
+    		//SpotManager.getInstance(ownerContext).showSpotAds(ownerContext);
+    		Ggsiaadd123.ddrgeofw123(ownerContext).ddrgdcfw123(ownerContext);
+    	}
     	    	
     }
     
