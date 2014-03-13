@@ -142,13 +142,12 @@ bool GameScene::init(){
     goldNmb->setPosition(ccp(goldIcon->getPositionX() + goldIcon->getContentSize().width + 2, goldIcon->getPositionY() - goldIcon->getContentSize().height * 0.5));
     this->addChild(goldNmb, Z_GOLD);
     
-    //goldShop
-//    goldShop = AniButton::create(KMenuShop, Utils::createSprite("goldToShop"));
-//    goldShop->setAnchorPoint(ccp(0, 0.5));
-//    goldShop->setPosition(goldNmb->getPosition() + ccp(goldNmb->getContentSize().width + 2, 0));
-//    this->addChild(goldShop);
+    
     //game ui
-    GameUI::create(_scene, KLayerOrderGameUI, this, ccp(20, goldNmb->getPositionY()));
+    if (GameShowShop) {
+        GameUI::create(_scene, KLayerOrderGameUI, this, ccp(20, goldNmb->getPositionY()));
+    }
+    
     
     //help
     help = Utils::createSprite("tip_help");
@@ -280,16 +279,18 @@ void GameScene::birdDie(bool dieReasonFall){
 
 void GameScene::showSave()
 {
-//    resurCount = dieCount;
-//    if (goldCount >= resurCount) {
-//    //if (dieCount <= 3 && goldCount >= 10 * dieCount) {
-//        PopupSave::create(_scene, KLayerOrderPopupSave, this, resurCount);
-//    }
-//    else {
-//        showResult();
-//    }
-    resurCount = dieCount;
-    popupSave = PopupSave::create(_scene, KLayerOrderPopupSave, this, resurCount);
+    resurCount = dieCount * 5;
+    if (GameShowShop) {
+        popupSave = PopupSave::create(_scene, KLayerOrderPopupSave, this, resurCount);
+    }
+    else {
+        if (goldCount >= resurCount) {
+            popupSave = PopupSave::create(_scene, KLayerOrderPopupSave, this, resurCount);
+        }
+        else {
+            showResult();
+        }
+    }
 }
 
 void GameScene::showResult()
@@ -565,7 +566,10 @@ void GameScene::menuCommand(int menuId)
     else if (menuId == KMenuSaveOk) {
         //gold not enough
         if (goldCount < resurCount) {
-            PopupShop *pShop = PopupShop::create(_scene, KLayerOrderPopupShop, this);
+            if (GameShowShop) {
+                PopupShop *pShop = PopupShop::create(_scene, KLayerOrderPopupShop, this);
+            }
+            
             return;
         }
         
