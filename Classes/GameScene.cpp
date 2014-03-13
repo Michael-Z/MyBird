@@ -127,7 +127,7 @@ bool GameScene::init(){
     //goldIcon
     goldIcon = Utils::createSprite("gold_1");
     goldIcon->setAnchorPoint(ccp(0, 1));
-    goldIcon->setPosition(ccp(20, visOri.y + visSize.height - 20));
+    goldIcon->setPosition(ccp(45, visOri.y + visSize.height - 20));
     this->addChild(goldIcon, Z_GOLD);
     //goldIcon animate
     CCArray *goldAnimArray = Utils::createAnimArray("gold", 4);
@@ -148,7 +148,7 @@ bool GameScene::init(){
 //    goldShop->setPosition(goldNmb->getPosition() + ccp(goldNmb->getContentSize().width + 2, 0));
 //    this->addChild(goldShop);
     //game ui
-    GameUI::create(_scene, KLayerOrderGameUI, this, goldNmb->getPosition() + ccp(goldNmb->getContentSize().width + 2, 0));
+    GameUI::create(_scene, KLayerOrderGameUI, this, ccp(20, goldNmb->getPositionY()));
     
     //help
     help = Utils::createSprite("tip_help");
