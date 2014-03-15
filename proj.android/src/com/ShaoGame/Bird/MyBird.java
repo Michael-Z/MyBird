@@ -65,14 +65,14 @@ import com.tencent.mm.sdk.openapi.WXTextObject;
 import com.tencent.mm.sdk.openapi.BaseReq;
 import com.tencent.mm.sdk.openapi.BaseResp;
 
-public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
+public class MyBird extends Cocos2dxActivity {
 	
 	public static Context ownerContext;
 	public static SharedPreferences sharedPrefs;
 	public static SharedPreferences.Editor prefsEditor;
 	private static Handler mHandler;
 	//微信
-	public static final String WX_APPID = "wx7e25d613337b3bc5";
+	public static final String WX_APPID = "wxed6feb2e2a0410f6";
 	public static IWXAPI api;
 	//飞沃
 //	private RelativeLayout myAdonContainerView;
@@ -94,9 +94,9 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 		
 		//微信
 		//将应用注册到微信
-		api = WXAPIFactory.createWXAPI(this, WX_APPID);
+		api = WXAPIFactory.createWXAPI(this, WX_APPID, false);
 		api.registerApp(WX_APPID);
-		api.handleIntent(getIntent(), this);
+		//api.handleIntent(getIntent(), this);
 		//飞沃banner
 //		myAdonContainerView = new RelativeLayout(this);
 //        RelativeLayout.LayoutParams parentLayputParams = new RelativeLayout.LayoutParams(
@@ -147,7 +147,7 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
     public static void sendToWX()
     {
     	if (api.isWXAppInstalled()) {
-    		api.openWXApp();
+    		//api.openWXApp();
     		//startActivity(new Intent())
     		
     		WXTextObject textObj = new WXTextObject();
@@ -166,6 +166,7 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
         		req.scene = SendMessageToWX.Req.WXSceneSession;
         	
         	api.sendReq(req);
+        	Log.v("aaaaa","bbbbbb");
     	}
     	else {
     		mHandler.post(new Runnable() {
@@ -292,16 +293,4 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
     	}
     }
 
-	@Override
-	public void onReq(BaseReq arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onResp(BaseResp arg0) {
-		// TODO Auto-generated method stub
-		Log.v("xxxxxxxx", "sssssss");
-		
-	}
 }
