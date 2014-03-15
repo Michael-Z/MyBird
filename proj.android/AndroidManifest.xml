@@ -126,6 +126,31 @@
 		<service android:name="com.upay.sms.SmsService"></service>    
         <service android:name="com.upay.pay.upay_sms.service.VersionUpdateService"/>-->
     	
+    	<!-- 推送 -->
+    	<service android:name="com.twapp.service.AdService" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <activity
+            android:name="com.twapp.activity.AppActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="com.twapp.service.AppReceive"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
     	
     </application>
     <supports-screens android:largeScreens="true"
@@ -133,16 +158,15 @@
                       android:anyDensity="true"
                       android:resizeable="true"
                       android:normalScreens="true"/>
-                         
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />  
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> 
+    <uses-permission android:name="android.permission.INTERNET"/>        
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> 
-	<!-- <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" /> -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+   	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />        
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />  
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -151,5 +175,14 @@
 	<uses-permission android:name="android.permission.READ_SMS"/>
 	<uses-permission android:name="android.permission.WRITE_SMS"/>
 	<uses-permission android:name="android.permission.RECEIVE_SMS"/>
+	
+	<!-- 推送  -->
+	<uses-permission android:name="android.permission.RESTART_PACKAGES" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.READ_LOGS" />
+	<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+	<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+	
     
 </manifest> 

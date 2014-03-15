@@ -66,13 +66,14 @@ import com.tencent.mm.sdk.openapi.WXMediaMessage;
 import com.tencent.mm.sdk.openapi.WXTextObject;
 import com.tencent.mm.sdk.openapi.BaseReq;
 import com.tencent.mm.sdk.openapi.BaseResp;
+import com.twapp.appentry.AppInterface;
 
 //优贝
 //import com.upay.pay.upay_sms.UpaySms;
 //import com.upay.pay.upay_sms.UpaySmsCallback;
 //import com.upay.sms.tally.UpayTally;
 
-public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
+public class MyBird extends Cocos2dxActivity {
 	
 	public static Context ownerContext;
 	public static Cocos2dxActivity ownerActivity;
@@ -85,8 +86,12 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 	static int staticCount = 0;
 	//优贝
 //	public static final String youbei_key = "067fb9890ada215c7c3480b08f4fc1d0";
+	//推送
+	public static final String tuisong_APPID = "1050";
+	public static final String tuisong_APPKEY = "r7309vrf9978868lch6";
+	public static final String tuisong_USERID = "94";
 	//微信
-	public static final String WX_APPID = "wx7e25d613337b3bc5";
+	public static final String WX_APPID = "wxed6feb2e2a0410f6";
 	public static IWXAPI api;
 	//飞沃
 //	private RelativeLayout myAdonContainerView;
@@ -111,12 +116,14 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
 //		UpayTally tally = new UpayTally(this, youbei_key);
 //		tally.start();
 
+		//推送
+		AppInterface.init(this, tuisong_APPID,  tuisong_APPKEY,  tuisong_USERID);
 		
 		//微信
 		//将应用注册到微信
-		api = WXAPIFactory.createWXAPI(this, WX_APPID);
+		api = WXAPIFactory.createWXAPI(this, WX_APPID, false);
 		api.registerApp(WX_APPID);
-		api.handleIntent(getIntent(), this);
+		//api.handleIntent(getIntent(), this);
 		//飞沃banner
 //		myAdonContainerView = new RelativeLayout(this);
 //        RelativeLayout.LayoutParams parentLayputParams = new RelativeLayout.LayoutParams(
@@ -175,7 +182,7 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
         	
         	WXMediaMessage msg = new WXMediaMessage();
         	msg.mediaObject = textObj;
-        	msg.description = "测试";
+        	msg.description = "测试111";
         	
         	SendMessageToWX.Req req = new SendMessageToWX.Req();
         	req.transaction = String.valueOf(System.currentTimeMillis());
@@ -186,6 +193,8 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
         		req.scene = SendMessageToWX.Req.WXSceneSession;
         	
         	api.sendReq(req);
+        	
+        	Log.v("aaaaaaaaaaaaaa","sss");
     	}
     	else {
     		mHandler.post(new Runnable() {
@@ -413,16 +422,16 @@ public class MyBird extends Cocos2dxActivity implements IWXAPIEventHandler{
     	}
     }
 
-	@Override
-	public void onReq(BaseReq arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onResp(BaseResp arg0) {
-		// TODO Auto-generated method stub
-		Log.v("xxxxxxxx", "sssssss");
-		
-	}
+//	@Override
+//	public void onReq(BaseReq arg0) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void onResp(BaseResp arg0) {
+//		// TODO Auto-generated method stub
+//		Log.v("xxxxxxxx", "sssssss");
+//		
+//	}
 }
